@@ -12,14 +12,16 @@ public class Renderer {
     public enum LineAlgo { NAIVE, DDA, BRESENHAM, BRESENHAM_INT; }
 
     private BufferedImage render;
-    public final int h = 200;
-    public final int w = 200;
+    private int h;
+    private int w;
 
     private String filename;
     private LineAlgo lineAlgo = LineAlgo.NAIVE;
 
-    public Renderer(String filename) {
-        render = new BufferedImage(200, 200, BufferedImage.TYPE_INT_ARGB);
+    public Renderer(String filename,int w,int h) {
+        this.w = w;
+        this.h = h;
+        render = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         this.filename = filename;
     }
 

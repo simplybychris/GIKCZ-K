@@ -9,8 +9,20 @@ public class App {
     String version = "0.02";
 
     public static void main(String[] args) {
+        if(args.length < 3)
+        {
+            System.out.println("Not all arguments were given");
+            return;
+        }
 
-        Renderer mainRenderer = new Renderer(System.getProperty("user.home")+"/render.png");
+        //directory
+        String directory=args[0];
+        //width
+        int w=Integer.parseInt(args[1]);
+        //height
+        int h=Integer.parseInt(args[2]);
+
+        Renderer mainRenderer = new Renderer(directory,w,h);
         mainRenderer.clear();
         mainRenderer.drawPoint(100, 100);
         try {
