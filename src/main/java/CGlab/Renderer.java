@@ -16,13 +16,17 @@ public class Renderer {
     private int w;
 
     private String filename;
-    private LineAlgo lineAlgo = LineAlgo.NAIVE;
+    private LineAlgo lineAlgo;
+//            = LineAlgo.NAIVE;
 
-    public Renderer(String filename, int w, int h) {
+    public Renderer(String filename, int w, int h, String alg) {
         this.w = w;
         this.h = h;
         render = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         this.filename = filename;
+        if(alg.equals(alg)){
+            lineAlgo = LineAlgo.NAIVE;
+        }
     }
 
     public void drawPoint(int x, int y) {
@@ -30,7 +34,7 @@ public class Renderer {
         render.setRGB(x, y, white);
     }
 
-    public void drawLine(int x0, int y0, int x1, int y1, LineAlgo lineAlgo) {
+    public void drawLine(int x0, int y0, int x1, int y1) {
         if (lineAlgo == LineAlgo.NAIVE) drawLineNaive(x0, y0, x1, y1);
         if (lineAlgo == LineAlgo.DDA) drawLineDDA(x0, y0, x1, y1);
         if (lineAlgo == LineAlgo.BRESENHAM) drawLineBresenham(x0, y0, x1, y1);

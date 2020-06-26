@@ -9,7 +9,7 @@ public class App {
     String version = "0.02";
 
     public static void main(String[] args) {
-        if(args.length < 3)
+        if(args.length < 4)
         {
             System.out.println("Not all arguments were given");
             return;
@@ -21,10 +21,12 @@ public class App {
         int w=Integer.parseInt(args[1]);
         //height
         int h=Integer.parseInt(args[2]);
+        //line algorithm
+        String alg = args[3];
 
-        Renderer mainRenderer = new Renderer(directory,w,h);
+        Renderer mainRenderer = new Renderer(directory,w,h,alg);
         mainRenderer.clear();
-        mainRenderer.drawLineNaive(0,0,100,20);
+        mainRenderer.drawLineNaive(0,0,100,100);
         try {
             mainRenderer.save();
         } catch (IOException ex) {
