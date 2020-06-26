@@ -24,7 +24,7 @@ public class App {
 
         Renderer mainRenderer = new Renderer(directory,w,h);
         mainRenderer.clear();
-        mainRenderer.drawPoint(100, 100);
+        mainRenderer.drawLineNaive(0,0,100,20);
         try {
             mainRenderer.save();
         } catch (IOException ex) {
