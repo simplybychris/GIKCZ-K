@@ -26,8 +26,15 @@ public class App {
 
         Renderer mainRenderer = new Renderer(directory,w,h,alg);
         mainRenderer.clear();
-        mainRenderer.drawLineNaive(0,0,100,100);
-        try {
+        mainRenderer.drawLine(320,240,360,320);
+        mainRenderer.drawLine(320,240,360,300);
+        mainRenderer.drawLine(320,240,360,220);
+        mainRenderer.drawLine(320,240,360,180);
+        mainRenderer.drawLine(320,240,100,200);
+        mainRenderer.drawLine(320,240,200,200);
+        mainRenderer.drawLine(320,240,160,300);
+        mainRenderer.drawLine(320,240,200,140);
+        try {;
             mainRenderer.save();
         } catch (IOException ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
