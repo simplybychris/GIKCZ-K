@@ -23,11 +23,14 @@ public class Renderer {
         this.h = h;
         render = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         this.filename = filename;
-        if(alg.equals("LINE_NAIVE")){
+        if (alg.equals("LINE_NAIVE")) {
             lineAlgo = LineAlgo.NAIVE;
         }
-        if(alg.equals("LINE_BRESENHAM")){
+        if (alg.equals("LINE_BRESENHAM")) {
             lineAlgo = LineAlgo.BRESENHAM;
+        }
+        if (alg.equals("LINE_BRESENHAM_INT")) {
+            lineAlgo = LineAlgo.BRESENHAM_INT;
         }
     }
 
@@ -64,14 +67,14 @@ public class Renderer {
     public void drawLineBresenham(int x0, int y0, int x1, int y1) {
         int white = 255 | (255 << 8) | (255 << 16) | (255 << 24);
 
-        int dx = x1-x0;
-        int dy = y1-y0;
-        float derr = Math.abs(dy/(float)(dx));
+        int dx = x1 - x0;
+        int dy = y1 - y0;
+        float derr = Math.abs(dy / (float) (dx));
         float err = 0;
 
         int y = y0;
 
-        for (int x=x0; x<=x1; x++) {
+        for (int x = x0; x <= x1; x++) {
             render.setRGB(x, y, white);
             err += derr;
             if (err > 0.5) {
@@ -82,7 +85,22 @@ public class Renderer {
     }
 
     public void drawLineBresenhamInt(int x0, int y0, int x1, int y1) {
-        // TODO: zaimplementuj
+        int white = 255 | (255 << 8) | (255 << 16) | (255 << 24);
+
+        int dx = x1 - x0;
+        int dy = y1 - y0;
+        int derr = 2 * dy - dx;
+        
+        int y = y0;
+
+        for (int x = x0; x < x1; x++) {
+            render.setRGB(x, y, white);
+            if (derr > 0) {
+                y++;
+                derr = derr - 2 * dx;
+            }
+            derr = derr + 2 * dy;
+        } // Oktanty: 8
     }
 
     public void save() throws IOException {
