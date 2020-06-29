@@ -34,6 +34,36 @@ public class Renderer {
         }
     }
 
+    public Vec3f barycentric(Vec2f A, Vec2f B, Vec2f C, Vec2f P) {
+        Vec3f v1 = new Vec3f(B.x - A.x, C.x - A.x, A.x - P.x);
+        // tutaj potrzebujemy wektora składającego się ze współrzędnych
+        // x wektorów AB, AC ora PA.
+
+        float v2_y = B.y - A.y + C.y - A.y + A.y - P.y;
+        Vec3f v2 = new Vec3f(B.y - A.y,  C.y - A.y ,A.y - P.y);
+        // tutaj potrzebujemy wektora składającego się ze współrzędnych
+        // y wektorów AB, AC ora PA.
+
+
+        Vec3f cross = cross(v1,v2);
+        // iloczyn wektorowy v1 i v2. Wskazówka: zaimplementuj do tego oddzielną metodę
+        // Vec2f uv = // wektor postaci: cross.x / cross.z, cross.y / cross.z
+
+        Vec2f uv = new Vec2f((cross.x/cross.z),(cross.y/cross.z));
+        // wektor postaci: cross.x / cross.z, cross.y / cross.z
+
+        Vec3f barycentric = new Vec3f(uv.x,uv.y,1-uv.x-uv.y);
+        // współrzędne barycentryczne, uv.x, uv.y, 1- uv.x - uv.y
+        return barycentric;
+    }
+
+    public Vec3f cross(Vec3f A, Vec3f B){
+        float newA = (A.y*B.z - A.z*B.y);
+        float newB = (A.z*B.x - A.x*B.z);
+        float newC = (A.x*B.y - A.y*B.x);
+        return new Vec3f(newA, newB, newC);
+    }
+
     public void drawPoint(int x, int y) {
         int white = 255 | (255 << 8) | (255 << 16) | (255 << 24);
         render.setRGB(x, y, white);
@@ -90,7 +120,7 @@ public class Renderer {
         int dx = x1 - x0;
         int dy = y1 - y0;
         int derr = 2 * dy - dx;
-        
+
         int y = y0;
 
         for (int x = x0; x < x1; x++) {
