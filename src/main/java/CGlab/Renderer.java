@@ -39,11 +39,9 @@ public class Renderer {
         // tutaj potrzebujemy wektora składającego się ze współrzędnych
         // x wektorów AB, AC ora PA.
 
-        float v2_y = B.y - A.y + C.y - A.y + A.y - P.y;
         Vec3f v2 = new Vec3f(B.y - A.y,  C.y - A.y ,A.y - P.y);
         // tutaj potrzebujemy wektora składającego się ze współrzędnych
         // y wektorów AB, AC ora PA.
-
 
         Vec3f cross = cross(v1,v2);
         // iloczyn wektorowy v1 i v2. Wskazówka: zaimplementuj do tego oddzielną metodę
@@ -62,6 +60,20 @@ public class Renderer {
         float newB = (A.z*B.x - A.x*B.z);
         float newC = (A.x*B.y - A.y*B.x);
         return new Vec3f(newA, newB, newC);
+    }
+
+    public void drawTriangle(Vec2f A, Vec2f B, Vec2f C) {
+        for(int y=h;y>0;y--){   // iteracja po y
+            for(int x=0;x<w;x++){ // iteracja po x
+                Vec2f P = new Vec2f(x, y); // punkt P(x,y)
+                Vec3f bar = barycentric(A,B,C,P);
+
+                        if(bar.x>0 && bar.x<1 && bar.y>0 && bar.y<1 && bar.z>0 && bar.z<1){
+                            //jeśli każda ze współrzednych należy do przedziału (0,1) to rysuj pixel
+                            drawPoint(x,y);
+                        }
+            }
+        }
     }
 
     public void drawPoint(int x, int y) {

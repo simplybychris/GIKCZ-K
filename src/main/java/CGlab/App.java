@@ -26,14 +26,11 @@ public class App {
 
         Renderer mainRenderer = new Renderer(directory,w,h,alg);
         mainRenderer.clear();
-        mainRenderer.drawLine(320,240,360,320);
-        mainRenderer.drawLine(320,240,360,300);
-        mainRenderer.drawLine(320,240,360,220);
-        mainRenderer.drawLine(320,240,360,180);
-        mainRenderer.drawLine(320,240,100,200);
-        mainRenderer.drawLine(320,240,200,200);
-        mainRenderer.drawLine(320,240,160,300);
-        mainRenderer.drawLine(320,240,200,140);
+        Vec2f A = new Vec2f(10,10);
+        Vec2f B = new Vec2f(200,200);
+        Vec2f C = new Vec2f(450, 100);
+        mainRenderer.drawTriangle(A,B,C);
+
         try {;
             mainRenderer.save();
         } catch (IOException ex) {
