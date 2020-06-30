@@ -29,7 +29,8 @@ public class App {
         Vec2f A = new Vec2f(10,10);
         Vec2f B = new Vec2f(200,200);
         Vec2f C = new Vec2f(450, 100);
-        mainRenderer.drawTriangle(A,B,C);
+        Vec3i color = new Vec3i(252,251,181);
+        mainRenderer.drawTriangle(A,B,C, color);
 
         try {;
             mainRenderer.save();

@@ -62,16 +62,21 @@ public class Renderer {
         return new Vec3f(newA, newB, newC);
     }
 
-    public void drawTriangle(Vec2f A, Vec2f B, Vec2f C) {
+    public void drawTriangle(Vec2f A, Vec2f B, Vec2f C, Vec3i color) {
         for(int y=h;y>0;y--){   // iteracja po y
             for(int x=0;x<w;x++){ // iteracja po x
                 Vec2f P = new Vec2f(x, y); // punkt P(x,y)
                 Vec3f bar = barycentric(A,B,C,P);
 
-                        if(bar.x>0 && bar.x<1 && bar.y>0 && bar.y<1 && bar.z>0 && bar.z<1){
-                            //jeśli każda ze współrzednych należy do przedziału (0,1) to rysuj pixel
-                            drawPoint(x,y);
-                        }
+                if(bar.x>0 && bar.x<1 && bar.y>0 && bar.y<1 && bar.z>0 && bar.z<1){
+                    //jeśli każda ze współrzednych należy do przedziału (0,1) to rysuj pixel
+                    drawPoint(x,y);
+                    if(color.x>=0 && color.x <= 255 && color.y>=0 && color.y <= 255 && color.z>=0 && color.z <= 255) {
+                        drawColorPoint(x, y, color);
+                    }else{ // jesli wprowadzony jest niepoprawny zakres rgb, uzyj bialego koloru.
+                        drawPoint(x,y);
+                    }
+                }
             }
         }
     }
@@ -79,6 +84,11 @@ public class Renderer {
     public void drawPoint(int x, int y) {
         int white = 255 | (255 << 8) | (255 << 16) | (255 << 24);
         render.setRGB(x, y, white);
+    }
+
+    public void drawColorPoint(int x, int y, Vec3i color) {
+        int c = color.z | (color.y << 8) | (color.x << 16) | (255 << 24);
+        render.setRGB(x, y, c);
     }
 
     public void drawLine(int x0, int y0, int x1, int y1) {
