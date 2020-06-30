@@ -63,8 +63,13 @@ public class Renderer {
     }
 
     public void drawTriangle(Vec2f A, Vec2f B, Vec2f C, Vec3i color) {
-        for(int y=h;y>0;y--){   // iteracja po y
-            for(int x=0;x<w;x++){ // iteracja po x
+        int minX = (int) Math.min(A.x,Math.min(B.x,C.x));
+        int minY = (int) Math.min(A.y,Math.min(B.y,C.y));
+        int maxX = (int) Math.max(A.x,Math.max(B.x,C.x));
+        int maxY = (int) Math.max(A.y,Math.max(B.y,C.y));
+
+        for(int y=maxY;y>minY;y--){   // iteracja po y
+            for(int x=minX;x<maxX;x++){ // iteracja po x
                 Vec2f P = new Vec2f(x, y); // punkt P(x,y)
                 Vec3f bar = barycentric(A,B,C,P);
 
